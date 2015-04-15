@@ -170,7 +170,7 @@ if __name__ == "__main__":
     #Small demo of the results of the RDP algorithm with a real ECG fragment.
     # pylint: disable-msg=C0103
     import pylab
-    signal = np.genfromtxt('../../tests/100_MLII.txt')
+    signal = np.genfromtxt('../../records/100_MLII.txt')
     rp = arrayRDP(signal, 10)
     fig = pylab.figure()
     fig.clear()

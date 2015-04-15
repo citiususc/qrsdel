@@ -19,8 +19,10 @@ License along with this library.
 @author: T. Teijeiro
 """
 
+import constants
+
 #: Signal sampling frequency (Hz)
-SAMPLING_FREQ = 0.0
+SAMPLING_FREQ = 360.0
 
 #: Analog-Digital conversor gain
 ADCGain = 200.0
@@ -34,18 +36,22 @@ ASCALE = 10.0
 def set_sampling_freq(frequency):
     global SAMPLING_FREQ
     SAMPLING_FREQ = frequency
+    constants.init()
 
 def set_ADCGain(gain):
     global ADCGain
     ADCGain = gain
+    constants.init()
 
 def set_temporal_scale(scale):
     global TSCALE
     TSCALE = scale
+    constants.init()
 
 def set_amplitude_scale(scale):
     global ASCALE
     ASCALE = scale
+    constants.init()
 
 
 def bpm2msec(bpm):

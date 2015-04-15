@@ -24,7 +24,7 @@ License along with this library.
 
 import scipy.stats
 import numpy as np
-import constants as C
+from constants import CONSTANTS as C
 from ..signal_buffer import get_signal_fragment
 
 

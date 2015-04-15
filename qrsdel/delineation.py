@@ -22,13 +22,13 @@ License along with this library.
 @author: T. Teijeiro
 """
 
-import utils.constants as C
 import utils.signal_measures as sig_meas
 import operator
 import numpy as np
 import math
 import bisect
 from model import QRS, QRSShape, Interval as Iv
+from utils.constants import CONSTANTS as C
 from utils.constraints import verify, InconsistencyError
 from utils.wave_extraction import extract_waves
 from utils.units_helper import (msec2samples as ms2sp, phys2digital as ph2dg,
