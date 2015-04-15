@@ -38,7 +38,7 @@ import os
 
 #TODO point to a valid directory containing the QT database and the em_250
 #noise record.
-DB_DIR = '/tmp/qtdb/'
+DB_DIR = '/somewhere/qtdb/'
 os.chdir(DB_DIR)
 
 RECORDS = ['sel100',   'sel102',   'sel103',   'sel104',   'sel114',

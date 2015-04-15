@@ -576,10 +576,10 @@ def delineate_qrs(siginfo):
     """
     verify(siginfo)
     qrs = QRS()
-    #2. Peak point estimation.
+    #Peak point estimation.
     peak = _find_peak(siginfo)
     verify(peak is not None)
-    #3. QRS start and end estimation
+    #QRS start and end estimation
     #For each lead, we first check if it is a paced beat, whose delineation
     #process is different. In case of failure, we perform common delineation.
     limits = OrderedDict()
@@ -595,7 +595,7 @@ def delineate_qrs(siginfo):
     #Now we combine the limits in all leads.
     start, end = _combine_limits(limits, siginfo, peak)
     verify(start is not None and end > start)
-    #4. QRS waveform extraction for each lead.
+    #QRS waveform extraction for each lead.
     for lead, sig, points, baseline, _ in siginfo:
         #We constrain the area delineated so far.
         sig = sig[start:end+1]
@@ -636,7 +636,7 @@ def delineate_qrs(siginfo):
         qrs.shape[lead] = shape
     #There must be a recognizable QRS waveform in at least one lead.
     verify(qrs.shape)
-    #5. The detected shapes may constrain the delineation area.
+    #The detected shapes may constrain the delineation area.
     llim = min(qrs.shape[lead].waves[0].l for lead in qrs.shape)
     if llim > 0:
         start = start + llim
@@ -645,11 +645,11 @@ def delineate_qrs(siginfo):
     ulim = max(qrs.shape[lead].waves[-1].r for lead in qrs.shape)
     if ulim < end-start:
         end = start + ulim
-    #6. The definitive peak is assigned to the first relevant wave
+    #The definitive peak is assigned to the first relevant wave
     #(each QRS shapeform has a specific peak point.)
     peak = start + min(s.waves[_reference_wave(s)].m
                                                for s in qrs.shape.itervalues())
-    #7. Segmentation points set
+    #Segmentation points set
     qrs.paced = any(v[0] for v in limits.itervalues())
     qrs.start, qrs.peak, qrs.end = start, peak, end
     ###################################################################

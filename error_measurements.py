@@ -72,7 +72,7 @@ def load_waveforms(annfile):
 if __name__ == '__main__':
     #TODO adjust the following three variables to properly point to the
     #database directory and the correct reference and test annotators.
-    ANNOTS_DIR = '/tmp/qtdb/'
+    ANNOTS_DIR = '/somewhere/qtdb/'
     REF = 'q1c'
     TEST = 'qman'
     #Full list of records in the QT database
@@ -146,22 +146,15 @@ if __name__ == '__main__':
         arr = np.array(errors[rec][mit.ECGCodes.WFOFF])
         errors[rec][mit.ECGCodes.WFOFF] = arr
         print('Record {0} processed'.format(rec))
-    #The results are printed in Acunote wiki table format.
-    print('==== Distances table ====')
+    #The results are printed in Markdown format.
+    print('### Distances table')
     #We print the result in Acunote wiki table format. For each record, we
     #obtain errors mean and std for onset, R peak, and offset. We also obtain
     #The global one.
-    print("{|cellpadding=\"8px\"\n"
-          "|'''Record'''\n"
-          "|'''Se'''\n"
-          "|align=\"center\"| '''QRS Onset (ms)'''\n"
-          "|align=\"center\"| '''QRS Peak (ms)'''\n"
-          "|align=\"center\"| '''QRS Offset (ms)'''")
-
-    row = ("|'''{0}'''||{1:.2f}||{2:.2f} ± {3:.2f}"
-           "||{4:.2f} ± {5:.2f}||{6:.2f} ± {7:.2f}")
+    print("| Record | Se | QRS Onset (ms) | QRS Peak (ms)| QRS Offset (ms)|\n"
+          "|--------|----|----------------|--------------|----------------|")
+    row =("|**{0}** |{1:.2f}|{2:.2f} ± {3:.2f}|{4:.2f} ± {5:.2f}|{6:.2f} ± {7:.2f}|")
     for rec in RECORDS:
-        print('|-')
         print(row.format(rec,
                 sensitivity[rec],
                 np.mean(errors[rec][mit.ECGCodes.WFON]),
@@ -171,7 +164,6 @@ if __name__ == '__main__':
                 np.mean(errors[rec][mit.ECGCodes.WFOFF]),
                 np.std(errors[rec][mit.ECGCodes.WFOFF])))
     #We also obtain the global results
-    print('|-')
     se = np.mean([sensitivity[rec] for rec in RECORDS])
     qrson = np.concatenate(tuple(errors[rec][mit.ECGCodes.WFON]
                                                            for rec in RECORDS))
@@ -182,4 +174,3 @@ if __name__ == '__main__':
     print(row.format('Total:', se, np.mean(qrson), np.std(qrson),
                                    np.mean(qrspk), np.std(qrspk),
                                    np.mean(qrsoff), np.std(qrsoff)))
-    print('|}')
