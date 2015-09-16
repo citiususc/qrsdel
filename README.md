@@ -9,7 +9,7 @@ order to fully exploit this package.
 This project is implemented in pure python, so no installation is required.
 However, there are strong dependencies with the following python packages:
 
-1. [blist](https://pypi.python.org/pypi/blist)
+1. [sortedcontainers](https://pypi.python.org/pypi/sortedcontainers)
 2. [scipy](https://pypi.python.org/pypi/scipy)
 3. [numpy](https://pypi.python.org/pypi/numpy)
 

@@ -31,8 +31,12 @@ License along with this library.
 
 import math
 import numpy as np
-import blist
 
+try:
+    from sortedcontainers import SortedList, SortedDict
+except ImportError:
+    from blist import sortedlist as SortedList
+    from blist import sorteddict as SortedDict
 
 def array2points(array):
     """
@@ -74,7 +78,7 @@ def arrayRDP(arr, epsilon=0.0, n=None):
     n = n or len(arr)
     if n < 3:
         return arr
-    fragments = blist.sorteddict()
+    fragments = SortedDict()
     #We store the distances as negative values due to the default order of
     #sorteddict
     dist, idx = max_vdist(arr, 0, len(arr) - 1)
@@ -92,7 +96,7 @@ def arrayRDP(arr, epsilon=0.0, n=None):
             dist, newidx = max_vdist(arr, idx, last)
             fragments[(-dist, newidx)] = (idx, last)
     #Now we have to get all the indices in the keys of the fragments in order.
-    result = blist.sortedlist(i[0] for i in fragments.itervalues())
+    result = SortedList(i[0] for i in fragments.itervalues())
     result.add(len(arr) - 1)
     return np.array(result)
 

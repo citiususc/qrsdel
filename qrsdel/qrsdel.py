@@ -21,7 +21,12 @@ License along with this library.
 @author: T. Teijeiro
 """
 
-import blist
+try:
+    from sortedcontainers import SortedList, SortedListWithKey
+except ImportError:
+    from blist import sortedlist as SortedList
+    SortedListWithKey = SortedList
+
 import argparse
 import warnings
 import signal_buffer as sig_buf
@@ -54,7 +59,7 @@ def _characterize_signal(beg, end):
         samples, the baseline level estimation for the fragment, and the
         quality of the fragment in that lead.
     """
-    siginfo = blist.sortedlist(key= lambda v: -v.quality)
+    siginfo = SortedListWithKey(key=lambda v: -v.quality)
     for lead in sig_buf.get_available_leads():
         baseline, quality = characterize_baseline(lead, beg, end)
         sig = sig_buf.get_signal_fragment(beg, end, lead=lead)[0]
@@ -78,7 +83,7 @@ if __name__ == "__main__":
                help="Annotator name where the delineation results are stored.")
     args = parser.parse_args()
     #List where the output annotations are stored
-    output = blist.sortedlist()
+    output = SortedList()
     #Record reading and input annotations loading
     record = mit.load_MIT_record(args.r)
     set_sampling_freq(record.frequency)

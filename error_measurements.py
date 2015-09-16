@@ -24,7 +24,11 @@ License along with this library.
 @author: T. Teijeiro
 """
 
-import blist
+try:
+    from sortedcontainers import SortedList
+except ImportError:
+    from blist import sortedlist as SortedList
+
 import numpy as np
 import qrsdel.utils.mit as mit
 import qrsdel.utils.constants as C
@@ -53,7 +57,7 @@ class WaveForm(object):
 
 def load_waveforms(annfile):
     """Obtains a sorted list of waveform objects from an annotations file"""
-    waveforms = blist.sortedlist()
+    waveforms = SortedList()
     anns = mit.read_annotations(annfile)
     for i in xrange(len(anns)):
         a = anns[i]
