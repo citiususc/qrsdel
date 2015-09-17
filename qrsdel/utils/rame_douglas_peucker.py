@@ -36,7 +36,13 @@ try:
     from sortedcontainers import SortedList, SortedDict
 except ImportError:
     from blist import sortedlist as SortedList
-    from blist import sorteddict as SortedDict
+    from blist import sorteddict as _SortedDict
+
+    class SortedDict(_SortedDict):
+        def popitem(self, last=False):
+            # blist.sorteddict only supports popping the first item.
+            assert last == False
+            return super(SortedDict, self).popitem()
 
 def array2points(array):
     """
@@ -84,7 +90,7 @@ def arrayRDP(arr, epsilon=0.0, n=None):
     dist, idx = max_vdist(arr, 0, len(arr) - 1)
     fragments[(-dist, idx)] = (0, len(arr) - 1)
     while len(fragments) < n-1:
-        (dist, idx), (first, last) = fragments.popitem()
+        (dist, idx), (first, last) = fragments.popitem(last=False)
         if -dist <= epsilon:
             #We have to put again the last item to prevent loss
             fragments[(dist, idx)] = (first, last)
