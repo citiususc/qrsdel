@@ -9,7 +9,7 @@ order to fully exploit this package.
 This project is implemented in pure python, so no installation is required.
 However, there are strong dependencies with the following python packages:
 
-1. [blist](https://pypi.python.org/pypi/blist)
+1. [sortedcontainers](https://pypi.python.org/pypi/sortedcontainers)
 2. [scipy](https://pypi.python.org/pypi/scipy)
 3. [numpy](https://pypi.python.org/pypi/numpy)
 
@@ -28,7 +28,7 @@ next section.
 **qrsdel** can be used directly from the command line in order to perform the
 delineation of a set of previously detected QRS complexes in a signal file in the
 [WFDB format](http://www.physionet.org/physiotools/wag/wag.htm). To do this,
-simply enter following command from the root *qrsdel* directory:
+simply enter the following command from the root *qrsdel* directory:
 
 ```
 python -m qrsdel.qrsdel [-h] -r RECORD -a REF -o OUTPUT
