@@ -2,9 +2,9 @@
 This project provides the implementation of a noise robust multi-lead QRS
 delineation algorithm on ECG signals. A full description of the algorithm
 is detailed in [this paper](http://www.cinc.org/archives/2015/pdf/0209.pdf)
-presented in the [2015 Computing in Cardiology conference]
-(http://www.cinc.org/archives/2015/). It is recommended to be familiar with
-the [WFDB software package](http://www.physionet.org/physiotools/wfdb.shtml) 
+presented in the [2015 Computing in Cardiology conference](http://www.cinc.org/archives/2015/).
+It is recommended to be familiar with the 
+[WFDB software package](http://www.physionet.org/physiotools/wfdb.shtml) 
 in order to fully exploit this package.
 
 ## Installation
